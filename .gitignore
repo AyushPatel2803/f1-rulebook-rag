@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# FIA rulebook PDFs
+data/raw/*.pdf
+
+# Files scripts generate
+data/*.jsonl
