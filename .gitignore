@@ -224,3 +224,8 @@ data/raw/*.pdf
 
 # Files scripts generate
 data/*.jsonl
+data/*.npy
+
+# Downloaded AI models
+models/
+

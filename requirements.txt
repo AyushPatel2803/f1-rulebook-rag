@@ -1,2 +1,4 @@
 pymupdf
 python-dotenv
+sentence-transformers
+numpy
