@@ -32,7 +32,7 @@
         "score": 0.652
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -289,7 +289,7 @@
         "score": 0.681
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -399,7 +399,7 @@
         "score": 0.739
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -768,7 +768,7 @@
         "score": 0.697
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -1286,7 +1286,7 @@
         "score": 0.638
       }
     ],
-    "auto_check": "REFUSED",
+    "auto_check": "PROMPT LEAKED",
     "model": "openai/gpt-oss-20b"
   },
   {
