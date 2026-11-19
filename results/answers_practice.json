@@ -237,7 +237,7 @@
     "category": "numeric",
     "behaviour": "answer",
     "expected_answer": "Q1 18 min, Q2 15 min, Q3 13 min, with 7-minute breaks. The slowest 6 are knocked out after Q1 and after Q2 (22-car grid).",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "Q1 is 18 minutes long and knocks out the slowest 6 cars.  \nQ2 is 15 minutes long and knocks out the slowest 6 cars.  \nQ3 is 13 minutes long and no cars are knocked out (the 10 fastest remain). (B2.4.2)",
     "sources": [
       {
         "rule": "F3.2.8",
@@ -305,7 +305,7 @@
         "score": 0.62
       }
     ],
-    "auto_check": "FALSE REFUSAL",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -1172,7 +1172,7 @@
     "category": "cross_document",
     "behaviour": "answer",
     "expected_answer": "The rules never say DRS. Wing flaps switch between Corner Mode and Straight Mode (less drag). Section B calls it Driver Adjustable Bodywork, usable only when enabled by the Control Electronics, inside FIA-defined Activation Zones.",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "The 2026 regulations provided don't cover that.",
     "sources": [
       {
         "rule": "C1.4",
@@ -1642,7 +1642,7 @@
     "category": "synonym_slang",
     "behaviour": "answer",
     "expected_answer": "A 14-day factory Shutdown Period in July and/or August, plus a 9-day winter shutdown from 24 December.",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "The teams’ summer break is a shutdown period of fourteen (14) consecutive calendar days during July and/or August (F3.1.1). If two consecutive competitions in that window are only seventeen (17) days apart, the shutdown is reduced to thirteen (13) consecutive days (F3.1.1).",
     "sources": [
       {
         "rule": "B10.1.2",
@@ -1711,7 +1711,7 @@
         "score": 0.615
       }
     ],
-    "auto_check": "FALSE REFUSAL",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -1720,7 +1720,7 @@
     "category": "out_of_scope",
     "behaviour": "refuse",
     "expected_answer": "Refuse: race results are not in the rules (Monaco is only mentioned for race distance). Naming any winner = Hallucination.",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "The 2026 regulations provided don't cover that.",
     "sources": [
       {
         "rule": "A2.6.1",
@@ -1878,7 +1878,7 @@
     "category": "out_of_scope",
     "behaviour": "refuse",
     "expected_answer": "Refuse: there is no driver-number list. OK to add the general rule (numbers 1-99, except 17).",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "The 2026 regulations provided don't cover that.",
     "sources": [
       {
         "rule": "A2.1.2",
@@ -1954,7 +1954,7 @@
     "category": "out_of_scope",
     "behaviour": "refuse",
     "expected_answer": "Refuse: no race dates in the rules.",
-    "app_answer": "I couldn't find anything in the 2026 regulations about that.",
+    "app_answer": "The 2026 regulations provided don't cover that.",
     "sources": [
       {
         "rule": "Appendix A7",

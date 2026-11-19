@@ -18,7 +18,7 @@ with open("data/chunks.jsonl", encoding="utf-8") as f:
 
 MODEL = "openai/gpt-oss-20b"
 TOP_K = 8  # the right rule is often ranked 4-8, so 3 cards wasn't enough
-MIN_SCORE = 0.65  # below this, nothing in the rulebook is close enough to answer from
+MIN_SCORE = 0.0  # gate off: testing whether the AI and the citation check refuse junk on their own
 
 REFUSAL = "The 2026 regulations provided don't cover that."
 
