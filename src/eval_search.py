@@ -1,83 +1,53 @@
-"""Test 1: does search find the right rule for each test question?"""
-
+"""Test 1: does search find the right rule for each practice question?"""
 import json
 from collections import Counter
 
-import numpy as np
-from sentence_transformers import SentenceTransformer
+from ask import MIN_SCORE, TOP_K, search
 
-SPLIT = "practice"  # only switch to "final" once, at the very end
-TOP_K = 3
-MIN_SCORE = 0.65
-SEARCH_DEPTH = 50  # how far down the list to look for the right rule
-
-model = SentenceTransformer("BAAI/bge-small-en-v1.5", cache_folder="models")
-vectors = np.load("data/vectors.npy")
-
-cards = []
-with open("data/chunks.jsonl", encoding="utf-8") as f:
-    for line in f:
-        cards.append(json.loads(line))
-
-with open("tests/test_set.json", encoding="utf-8") as f:
-    tests = [t for t in json.load(f) if t["split"] == SPLIT]
+SPLIT = "practice"
+DEPTH = 20  # how far down the list to look for the right rule
 
 
 def rule_matches(rule, expected):
-    # "B5.12" should count "B5.12.3" as a hit, but not "B5.120"
+    # an expected "B1.9" also counts if search found a sub-rule like "B1.9.6"
     return any(rule == e or rule.startswith(e + ".") for e in expected)
 
 
-hits = Counter()
-totals = Counter()
-ranks = []
-false_refusals = 0
-blocked = 0
-tricks = 0
+with open("tests/test_set.json", encoding="utf-8") as f:
+    tests = [t for t in json.load(f) if t["split"] == SPLIT]
+real = [t for t in tests if t["answerable"]]
+tricks = [t for t in tests if not t["answerable"]]
 
-for t in tests:
-    q = model.encode(t["question"], normalize_embeddings=True)
-    scores = vectors @ q
-    order = np.argsort(scores)[::-1]
-    found = [cards[i]["rule"] for i in order[:TOP_K]]
-    best = float(scores[order[0]])
-    note = ""
+hits, totals = Counter(), Counter()
+in_depth = 0
+blocked_real = []
 
-    if t["answerable"]:
-        rank = None
-        for n, i in enumerate(order[:SEARCH_DEPTH], start=1):
-            if rule_matches(cards[i]["rule"], t["expected_rules"]):
-                rank = n
-                break
-        ranks.append(rank)
+print(f"Real questions ({len(real)}): where the right rule landed\n")
+for t in real:
+    results = search(t["question"], k=DEPTH)
+    best = results[0][1]
+    rank = next((n for n, (card, _) in enumerate(results, 1)
+                 if rule_matches(card["rule"], t["expected_rules"])), None)
 
-        ok = rank is not None and rank <= TOP_K
-        totals[t["category"]] += 1
-        hits[t["category"]] += ok
-        status = "HIT " if ok else "MISS"
-        note = f"rank {rank}" if rank else f"rank >{SEARCH_DEPTH}"
-        if best < MIN_SCORE:
-            false_refusals += 1
-            note += "  <- gate would block this real question"
-    else:
-        tricks += 1
-        if best < MIN_SCORE:
-            blocked += 1
-            status = "GATE"
-        else:
-            status = "PASS"
+    totals[t["category"]] += 1
+    if rank and rank <= TOP_K:
+        hits[t["category"]] += 1
+    if rank:
+        in_depth += 1
+    if best < MIN_SCORE:
+        blocked_real.append(t["id"])
 
-    print(f'{t["id"]:>3}  {status}  {best:.0%}  {t["category"]:<16} found: {", ".join(found):<34} {note}')
+    status = "HIT " if rank and rank <= TOP_K else "miss"
+    shown = rank if rank else f">{DEPTH}"
+    print(f"  {status}  #{t['id']:<3} rank {shown:<4} best {best:.0%}  {t['question'][:60]}")
 
-print()
 total_hits = sum(hits.values())
-total = sum(totals.values())
-print(f"Search found the right rule: {total_hits}/{total} ({total_hits / total:.0%})")
-for cat in totals:
-    print(f"   {cat:<16} {hits[cat]}/{totals[cat]}")
+print(f"\nRight rule in top {TOP_K}: {total_hits}/{len(real)} ({total_hits / len(real):.0%})")
+print(f"Right rule anywhere in the top {DEPTH}: {in_depth}/{len(real)}")
+print("By category:")
+for cat in sorted(totals):
+    print(f"  {cat:<22} {hits[cat]}/{totals[cat]}")
 
-in_top10 = sum(1 for r in ranks if r is not None and r <= 10)
-in_top20 = sum(1 for r in ranks if r is not None and r <= 20)
-print(f"Right rule somewhere in top 10: {in_top10}/{total}   top 20: {in_top20}/{total}")
-print(f"Real questions the gate would wrongly block: {false_refusals}/{total}")
-print(f"Trick questions blocked by the 65% gate: {blocked}/{tricks}")
+blocked_tricks = [t["id"] for t in tricks if search(t["question"])[0][1] < MIN_SCORE]
+print(f"\nGate ({MIN_SCORE:.0%}) wrongly blocks real questions: {blocked_real or 'none'}")
+print(f"Gate blocks trick questions: {len(blocked_tricks)}/{len(tricks)} {blocked_tricks}")

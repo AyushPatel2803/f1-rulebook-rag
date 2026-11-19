@@ -42,11 +42,20 @@ RULE_NUMBER = re.compile(r"\b[A-F]\d+(?:\.\d+)+\b")
 REFUSAL_SENTENCE = re.compile(r"the 2026 regulations provided don['’]t cover that\.?", re.IGNORECASE)
 
 
-def search(question):
+def search(question, k=TOP_K):
     q = embedder.encode(question, normalize_embeddings=True)
     scores = vectors @ q
-    top = np.argsort(scores)[::-1][:TOP_K]
-    return [(cards[i], float(scores[i])) for i in top]
+
+    # long rules are split into parts; keep only the best part so one rule can't fill every slot
+    results, seen = [], set()
+    for i in np.argsort(scores)[::-1]:
+        if cards[i]["rule"] in seen:
+            continue
+        seen.add(cards[i]["rule"])
+        results.append((cards[i], float(scores[i])))
+        if len(results) == k:
+            break
+    return results
 
 
 def build_prompt(question, results):
