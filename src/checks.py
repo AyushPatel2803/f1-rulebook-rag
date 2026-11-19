@@ -1,4 +1,5 @@
 """Shared automatic checks for the app's answers."""
+import re
 
 REFUSAL_PHRASES = [
     "don't cover", "do not cover", "doesn't cover", "not covered",
@@ -22,13 +23,21 @@ def normalize(text):
         text = text.replace(ch, "-")
     for ch in "\u00a0\u202f\u2009":
         text = text.replace(ch, " ")
+        text = text.replace("\u2019", "'")    
     return text.lower()
 
 
 def contains(text, word):
     word = normalize(word)
+    # whole words only, so "four" doesn't match "fourth" and "10" doesn't match "100"
+    end = r"(?!\d)" if word[-1].isdigit() else r"(?:e?s)?(?!\w)"
+    if re.search(r"(?<!\w)" + re.escape(word) + end, text):
+        return True
     # "1,000" should also match "1000" and "1 000"
-    return word in text or word.replace(",", "") in text.replace(",", "").replace(" ", "")
+    digits = word.replace(",", "")
+    if digits.isdigit():
+        return any(n.replace(",", "").replace(" ", "") == digits for n in re.findall(r"\d[\d, ]*\d|\d", text))
+    return False
 
 
 def auto_check(test, answer):
