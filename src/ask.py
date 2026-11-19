@@ -18,7 +18,14 @@ with open("data/chunks.jsonl", encoding="utf-8") as f:
 
 MODEL = "openai/gpt-oss-20b"
 TOP_K = 8  # the right rule is often ranked 4-8, so 3 cards wasn't enough
-MIN_SCORE = 0.0  # gate off: testing whether the AI and the citation check refuse junk on their own
+MIN_SCORE = 0.0  # gate off: tested, the AI and the citation check refuse junk on their own
+FAN_K = 3  # most extra cards the word bank may add
+
+# fans and the rulebook use different words for the same thing ("battery" vs "Energy Store")
+with open("glossary.json", encoding="utf-8") as f:
+    glossary = json.load(f)
+for entry in glossary:
+    entry["pattern"] = re.compile(r"\b(" + "|".join(re.escape(w) for w in entry["fan"]) + r")\b", re.IGNORECASE)
 
 REFUSAL = "The 2026 regulations provided don't cover that."
 
@@ -58,6 +65,32 @@ def search(question, k=TOP_K):
     return results
 
 
+def rulebook_words(question):
+    words = []
+    for entry in glossary:
+        if entry["pattern"].search(question):
+            words += entry["rulebook"]
+    return words
+
+
+def mentions(card, words):
+    text = card["context"] + " " + card["text"]
+    return any(re.search(r"\b" + re.escape(w) + r"\b", text, re.IGNORECASE) for w in words)
+
+
+def retrieve(question):
+    """The cards the AI gets: the normal top results, plus a few found using the rulebook's own words."""
+    results = search(question)
+    words = rulebook_words(question)
+    if words:
+        have = {card["rule"] for card, _ in results}
+        lane = search(question + " " + " ".join(words), k=20)
+        # only new cards that actually use one of the rulebook words, so the AI isn't handed noise
+        extra = [(c, s) for c, s in lane if c["rule"] not in have and mentions(c, words)]
+        results += extra[:FAN_K]
+    return results
+
+
 def build_prompt(question, results):
     excerpts = []
     for card, score in results:
@@ -89,7 +122,7 @@ def check_answer(answer, results):
 
 
 def ask(question):
-    results = search(question)
+    results = retrieve(question)
     if results[0][1] < MIN_SCORE:
         return "I couldn't find anything in the 2026 regulations about that.", results
 

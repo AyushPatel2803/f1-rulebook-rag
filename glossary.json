@@ -1,0 +1,97 @@
+[
+  {"rulebook": ["Minimum Mass", "Car Mass"],
+   "fan": ["weight", "weigh", "weighs", "heavy", "heavier", "minimum weight", "kilos", "kg"],
+   "source": "C4.1 and App. C1 'Car Mass'; 'minimum weight' in englishgrammar.org and F1.com 2026 beginner's guide"},
+
+  {"rulebook": ["Driver Adjustable Bodywork", "Straight Mode", "Corner Mode"],
+   "fan": ["DRS", "drag reduction system", "active aero", "active aerodynamics", "moving wings", "wing flap", "wing flaps"],
+   "source": "B7.1, C3.10.10, C3.11.6, App. C1 'State of Deployment'; F1.com glossary: DRS replaced by Active Aero"},
+
+  {"rulebook": ["Energy Store"],
+   "fan": ["battery", "batteries"],
+   "source": "App. C1 'Energy Store (ES)'; F1.com glossary: 'Battery: common name for the Energy Store'"},
+
+  {"rulebook": ["ERS-K"],
+   "fan": ["battery power", "electric power", "electric motor", "hybrid power", "KERS", "MGU-K", "ERS"],
+   "source": "App. C1 'ERS-K' (only part of ERS allowed to propel the car); F1.com glossary 'ERS', 'MGU-K'; englishgrammar.org 'KERS'"},
+
+  {"rulebook": ["Boost"],
+   "fan": ["boost button", "boost mode"],
+   "source": "App. C1 'Boost'; F1.com 2026 key terms 'Boost Button'"},
+
+  {"rulebook": ["Overtake"],
+   "fan": ["overtake mode", "overtake button", "push to pass", "push-to-pass", "manual override", "MOM", "attack mode"],
+   "source": "App. C1 'Overtake'; F1.com glossary 'Overtake Mode'; The Race: replaces 'manual override mode'; Motorsport.com: push-to-pass"},
+
+  {"rulebook": ["Recharge"],
+   "fan": ["harvesting", "harvest", "regen", "regeneration", "super clipping", "superclipping", "lift and coast", "lift-off regen"],
+   "source": "App. C1 'Recharge'; F1.com glossary 'Recharge'; F1.com 2026 key terms 'super clipping', 'lift-off regen'"},
+
+  {"rulebook": ["Shutdown Period"],
+   "fan": ["summer break", "summer shutdown", "factory shutdown", "winter break", "winter shutdown"],
+   "source": "F3.1; formulaonehistory.com 'Summer Break', 'Winter Break'"},
+
+  {"rulebook": ["Start Procedure", "red lights"],
+   "fan": ["lights out", "start lights", "starting lights", "race start"],
+   "source": "B5.7; englishgrammar.org 'Lights out'"},
+
+  {"rulebook": ["false start"],
+   "fan": ["jump start", "jumped the start", "jumping the start"],
+   "source": "B5.11; F1.com glossary 'Jump Start'; englishgrammar.org 'Jump start'"},
+
+  {"rulebook": ["Power Unit"],
+   "fan": ["engine", "engines", "powertrain", "power units", "engine penalty"],
+   "source": "App. C1 'Power Unit', 'Engine (ICE)'; F1.com glossary 'Power Unit = Powertrain'"},
+
+  {"rulebook": ["grid place", "grid position"],
+   "fan": ["grid penalty", "grid drop", "grid drops", "back of the grid"],
+   "source": "B8; englishgrammar.org 'Grid penalty'; F1.com glossary 'Grid Penalty'"},
+
+  {"rulebook": ["blanket"],
+   "fan": ["tyre warmer", "tyre warmers", "tire warmer", "tire warmers", "tyre blankets", "tire blankets"],
+   "source": "C10.8; F1.com glossary 'Tyre Blanket = Tyre warmer'"},
+
+  {"rulebook": ["tyre"],
+   "fan": ["tire", "tires"],
+   "source": "US spelling; the rulebook uses British 'tyre'"},
+
+  {"rulebook": ["intermediate", "wet-weather"],
+   "fan": ["inters", "wets", "full wets", "rain tyres", "rain tires", "wet tyres", "wet tires"],
+   "source": "F1.com glossary 'Intermediate = inters', 'Wets = full wet tyres'"},
+
+  {"rulebook": ["Pit Lane"],
+   "fan": ["pit stop", "pitstop", "pit stops", "undercut", "overcut", "pit window", "pitting"],
+   "source": "App. B1 'Pit Lane'; F1.com glossary 'Pit Stop', 'Undercut', 'Overcut', 'Pit Window'"},
+
+  {"rulebook": ["Plank"],
+   "fan": ["skid block", "skid blocks"],
+   "source": "F1.com glossary 'Plank = Skid block'"},
+
+  {"rulebook": ["Survival Cell"],
+   "fan": ["monocoque", "tub", "chassis"],
+   "source": "App. C1 'Survival Cell'; F1.com glossary 'Monocoque = survival cell', 'Chassis = tub'"},
+
+  {"rulebook": ["Cost Cap", "Financial Regulations"],
+   "fan": ["budget cap", "spending cap", "spending limit"],
+   "source": "App. A1 'Cost Cap'; F1.com glossary 'Financial Regulations = budget cap / cost cap'"},
+
+  {"rulebook": ["Formation Lap"],
+   "fan": ["warm-up lap", "warm up lap", "parade lap"],
+   "source": "F1.com glossary 'Formation Lap = warm-up lap / parade lap'"},
+
+  {"rulebook": ["Lap Time Classified Session"],
+   "fan": ["LTCS"],
+   "source": "App. B1 'Lap Time Classified Session (LTCS)'"},
+
+  {"rulebook": ["Total Time Classified Session"],
+   "fan": ["TTCS"],
+   "source": "App. B1 'Total Time Classified Session (TTCS)'"},
+
+  {"rulebook": ["Alternative Format Competition"],
+   "fan": ["sprint weekend", "sprint weekends", "sprint format"],
+   "source": "App. B1 'Alternative Format Competition (AFC)'"},
+
+  {"rulebook": ["Standard Format Competition"],
+   "fan": ["normal weekend", "regular weekend", "non-sprint weekend"],
+   "source": "App. B1 'Standard Format Competition (SFC)'"}
+]
