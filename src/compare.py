@@ -3,7 +3,7 @@ import json
 
 from checks import auto_check
 
-OLD = "results/check_v1_answers_practice.json"
+OLD = "results/dedupe_answers_practice.json"
 NEW = "results/answers_practice.json"
 
 

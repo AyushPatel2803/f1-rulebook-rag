@@ -17,7 +17,7 @@ with open("data/chunks.jsonl", encoding="utf-8") as f:
     cards = [json.loads(line) for line in f]
 
 MODEL = "openai/gpt-oss-20b"
-TOP_K = 3
+TOP_K = 8  # the right rule is often ranked 4-8, so 3 cards wasn't enough
 MIN_SCORE = 0.65  # below this, nothing in the rulebook is close enough to answer from
 
 REFUSAL = "The 2026 regulations provided don't cover that."
