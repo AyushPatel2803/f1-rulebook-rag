@@ -73,6 +73,16 @@ def rulebook_words(question):
     return words
 
 
+def word_hints(question):
+    """Translations for the fan words in a question, so the AI can link them to the excerpts."""
+    hints = []
+    for entry in glossary:
+        found = entry["pattern"].search(question)
+        if found:
+            hints.append(f'"{found.group(0)}" -> {" / ".join(entry["rulebook"])}')
+    return hints
+
+
 def mentions(card, words):
     text = card["context"] + " " + card["text"]
     return any(re.search(r"\b" + re.escape(w) + r"\b", text, re.IGNORECASE) for w in words)
@@ -91,12 +101,17 @@ def retrieve(question):
     return results
 
 
-def build_prompt(question, results):
+def build_prompt(question, results, hints=()):
     excerpts = []
     for card, score in results:
         header = f"[{card['rule']}] {card['context']} ({card['doc']}, pages {', '.join(card['pages'])})"
         excerpts.append(header + "\n" + card["text"])
-    return "Rule excerpts:\n\n" + "\n\n---\n\n".join(excerpts) + f"\n\n<question>\n{question}\n</question>"
+    prompt = "Rule excerpts:\n\n" + "\n\n---\n\n".join(excerpts)
+    if hints:
+        prompt += ("\n\nWord hints (fans and the rulebook use different words for the same thing. "
+                   "These only translate words; they are not rules and must not be cited):\n"
+                   + "\n".join(f"- {h}" for h in hints))
+    return prompt + f"\n\n<question>\n{question}\n</question>"
 
 
 def check_answer(answer, results):
@@ -130,7 +145,7 @@ def ask(question):
         model=MODEL,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": build_prompt(question, results)},
+            {"role": "user", "content": build_prompt(question, results, word_hints(question))},
         ],
         temperature=0,
     )

@@ -7,3 +7,5 @@
 - The prompt alone couldn't stop the jailbreak (#48); an output guard in code did.
 - Similarity scores are bunched together (51-73%), so a fixed 65% gate blocked real questions.
 - Turning the 65% gate off fixed #4 and #29, and the AI still refused all 3 tricks the gate used to block. The gate only added false refusals.
+- The word bank (glossary.json, built from the rulebook's definitions + F1.com and other glossaries) fixed #19: "heavy" now finds "Minimum Mass" (was rank 174).
+- Found a bug in my own checker: "four" matched inside "fourth", which gave #16 a fake pass. Fixed with whole-word matching; the honest score dropped from 18 to 17.

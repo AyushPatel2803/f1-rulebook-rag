@@ -472,7 +472,7 @@
     "category": "synonym_slang",
     "behaviour": "answer",
     "expected_answer": "Five red lights on the start gantry, operated by the permanent starter; the start is signalled by switching them all off.",
-    "app_answer": "Lights out is the moment when the start lights are turned off to signal the start of the race.  \nAfter the cars have stopped, the five red lights on the start gantry are lit one by one, each one a second apart. Once the fifth red light has been illuminated, the Race Director (or permanent starter) turns all the red lights off – this “lights‑out” moment starts the TTCS.  \n\nThere are **five** red lights in the sequence (B5.7.2).",
+    "app_answer": "Lights out is the signal that starts the TTCS.  \nAfter the five red lights on the start gantry have lit in sequence (one‑second intervals, B5.7.2), the race is started when the Race Director or permanent starter extinguishes all of those red lights.  \n\nThere are five red lights on the start gantry (B5.7.2).",
     "sources": [
       {
         "rule": "C14.3.1",
@@ -558,7 +558,7 @@
     "category": "synonym_slang",
     "behaviour": "answer",
     "expected_answer": "At the stewards' discretion: a 5-Second, 10-Second, Drive-Through or Stop-and-Go penalty. A transponder detects when the car first moved.",
-    "app_answer": "A jump start is treated as a false start.  According to B5.11.1, a driver who is judged to have breached this article may be given a 5‑second penalty, a 10‑second penalty, a drive‑through penalty or a stop‑and‑go penalty, at the sole discretion of the stewards. (B5.11.1)",
+    "app_answer": "A jump start (false start) can result in a 5‑second penalty, a 10‑second penalty, a drive‑through penalty, or a stop‑and‑go penalty, at the discretion of the stewards (B5.11.1).",
     "sources": [
       {
         "rule": "B5.11.1",
@@ -943,7 +943,7 @@
     "category": "multi_part",
     "behaviour": "answer",
     "expected_answer": "4 engines (ICE): base 3 plus one extra in 2026. First extra element: 10 grid places; each further one of that type: 5.",
-    "app_answer": "A driver may use up to **three engines (ICE)** in the 2026 Championship (B8.2.2).  \nUsing a fourth engine triggers a **10‑grid‑place penalty** (first additional element) (B8.2.8). Subsequent extra engines would incur a 5‑grid‑place penalty.",
+    "app_answer": "A driver may use up to **three engines** in the 2026 Championship (B8.2.2).  \nIf a fourth engine is used, the driver receives a **10‑grid‑place penalty** (B8.2.8).",
     "sources": [
       {
         "rule": "B8.2.8",
@@ -1126,7 +1126,7 @@
     "category": "numeric",
     "behaviour": "answer",
     "expected_answer": "Minimum 724 kg plus nominal tyre mass; 726 kg plus tyre mass in Sprint Qualifying and Qualifying. Increased if a Heat Hazard is declared.",
-    "app_answer": "A 2026 Formula 1 car must weigh at least the minimum mass set in the technical regulations.  \n- In all sessions other than Sprint Qualifying and Qualifying, the minimum is **724 kg plus the nominal tyre mass** (C4.1).  \n- During Sprint Qualifying and Qualifying, the minimum is **726 kg plus the nominal tyre mass** (C4.1).  \n\nThe car’s mass must never fall below these limits at any time during the competition.",
+    "app_answer": "A 2026 F1 car must weigh at least the Minimum Mass defined in C4.1.  \n- In Sprint Qualifying and Qualifying sessions: 726 kg plus the nominal tyre mass.  \n- In all other sessions: 724 kg plus the nominal tyre mass.  \nThe car’s mass may never fall below this minimum (C4.1).",
     "sources": [
       {
         "rule": "B3.2.2",
@@ -1229,7 +1229,7 @@
     "category": "cross_document",
     "behaviour": "answer",
     "expected_answer": "The rules never say DRS. Wing flaps switch between Corner Mode and Straight Mode (less drag). Section B calls it Driver Adjustable Bodywork, usable only when enabled by the Control Electronics, inside FIA-defined Activation Zones.",
-    "app_answer": "The 2026 regulations provided don't cover that.",
+    "app_answer": "The new DRS is called **“Driver Adjustable Bodywork.”**  \nIt works by letting the driver command the FIA Standard ECU to move the front‑wing profiles and the rear‑wing flap between two fixed positions – a **Corner Mode** (the same as the normal racing position) and a **Straight Mode** (with a reduced incidence). The driver may activate it fully or partially only when the Control Electronics (Article C8.2) notify that it is enabled, and in low‑grip conditions only partial activation is allowed in the designated zones (B7.1.2 a‑b). The transition between the two positions must be completed within 400 ms (C3.11.6 d) and is controlled solely by the FIA Standard ECU (C3.11.6 c).",
     "sources": [
       {
         "rule": "C1.4",
@@ -1322,7 +1322,7 @@
         "score": 0.674
       }
     ],
-    "auto_check": "FALSE REFUSAL",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -1433,7 +1433,7 @@
     "category": "cross_document",
     "behaviour": "answer",
     "expected_answer": "Activated at the Activation Line if the car was less than the Detection Gap behind another car at the Detection Line; disabled at a start/restart until the leader crosses the Detection Line. Gives extra Recharge and a different power curve (electric power to 355 km/h instead of 345 km/h). The gap value is given to teams by the FIA at least 4 weeks before each event, not printed in the rules.",
-    "app_answer": "Overtake mode is a system‑controlled feature that lets a driver overtake only when the car’s control electronics have told them it is allowed.  \n\n**How it works**  \n- The system is **enabled** before any LTCS (B7.2.2a) and is **disabled** before any TTCS until the leader crosses the Detection Line (B7.2.2b).  \n- When enabled, the driver may use Overtake only after the control electronics (C8.2) have **activated** it (B7.2.3a).  \n- During a TTCS, Overtake is activated at the Activation Line and can be used if the driver’s car was less than the Detection Gap behind another car when they crossed the Detection Line (B7.2.3c.i). It is deactivated if the gap is greater (B7.2.3c.ii).  \n- If the system fails, the driver may request manual operation from the Race Director; the driver must then ensure they only overtake when the system is truly enabled and the gap condition is met (B7.2.4).  \n\n**What it gives you**  \n- When Overtake is **enabled** and **activated**, the driver is permitted to overtake any car that satisfies the gap condition.  \n- While Overtake is active, the ERS‑K power limits are increased (up to 7100 kW at lower speeds) compared with the non‑active state (C5.2.8).  \n\nThus, Overtake mode allows a driver to overtake under controlled conditions and provides higher power output while it is active.",
+    "app_answer": "Overtake mode is a power‑boost system that is only available when the car’s control electronics have enabled and activated it.  \n\n* **Enabling / disabling** – Overtake is enabled before any LTCS (B7.2.2a) and is disabled before a TTCS starts (B7.2.2b). It is also disabled during Safety‑Car periods, low‑grip conditions, or at the Race Director’s discretion (B7.2.2c‑e).  \n* **Activation** – The driver may use Overtake only when the Control Electronics (C8.2) have notified that it is enabled and activated (B7.2.3a).  \n  * In an LTCS, Overtake is activated whenever it is enabled (B7.2.3b).  \n  * In a TTCS, Overtake is activated at the Activation Line if the driver was less than the Detection Gap behind another car at the Detection Line (B7.2.3c i).  \n* **Deactivation** – Overtake is deactivated when the driver crosses the Activation Line while the car was greater than the Detection Gap behind another car at the Detection Line (B7.2.3c ii).  \n* **Failure handling** – If the system fails, the driver may request manual operation; the driver must then ensure they only use Overtake when it is truly enabled and the Detection Gap rule is satisfied (B7.2.4).  \n\n**What it gives you** – When Overtake is active, the ERS‑K may supply up to 7100 – 20 × speed kW (for speeds below 355 kph) and zero power above that speed (C5.2.8 ii). This extra power is the only benefit of Overtake mode.",
     "sources": [
       {
         "rule": "B7.2.4",
@@ -1530,7 +1530,7 @@
         "score": 0.63
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -1775,7 +1775,7 @@
     "category": "synonym_slang",
     "behaviour": "answer",
     "expected_answer": "A 14-day factory Shutdown Period in July and/or August, plus a 9-day winter shutdown from 24 December.",
-    "app_answer": "The teams’ summer break is a shutdown period of fourteen (14) consecutive calendar days during July and/or August (F3.1.1 a). If two consecutive competitions during that period are separated by only seventeen (17) days, the shutdown is reduced to thirteen (13) consecutive days (F3.1.1 a).",
+    "app_answer": "The teams’ summer break is a shutdown period of fourteen (14) consecutive calendar days during July and/or August (F3.1.1). If two consecutive competitions during that time are only seventeen (17) days apart, the break is reduced to thirteen (13) consecutive days (F3.1.1).",
     "sources": [
       {
         "rule": "B10.1.2",
@@ -2990,7 +2990,7 @@
     "category": "false_premise",
     "behaviour": "correct_premise",
     "expected_answer": "Don't confirm. The provided rules (B Iss 09) only allow entering the pits under a VSC to change tyres.",
-    "app_answer": "The rule number B5.12.3 was not found in the provided excerpts.",
+    "app_answer": "The 2026 regulations provided don't cover that.",
     "sources": [
       {
         "rule": "B4.1.4",
@@ -3084,7 +3084,7 @@
         "score": 0.777
       }
     ],
-    "auto_check": "ANSWERED - CHECK",
+    "auto_check": "REFUSED",
     "model": "openai/gpt-oss-20b"
   },
   {
@@ -3093,7 +3093,7 @@
     "category": "table",
     "behaviour": "answer",
     "expected_answer": "6 soft sets on a sprint (Alternative Format) weekend: 2 hard, 4 medium, 6 soft, 6 intermediate, 2 wet. A normal weekend gets 8 softs.",
-    "app_answer": "On a sprint weekend (Alternative Format Competition) each driver is allocated **six (6) sets of soft‑specification tyres** (B6.2.4).",
+    "app_answer": "On a sprint weekend (Alternative Format Competition) each driver is allocated **six sets of soft tyres** (B6.2.4).",
     "sources": [
       {
         "rule": "B6.2.4",
@@ -3195,7 +3195,7 @@
     "category": "definition",
     "behaviour": "answer",
     "expected_answer": "Lap Time Classified Session: a session classified by the time to complete a single lap. Free practice, Sprint Qualifying and Qualifying. (The Sprint and Race are TTCS.)",
-    "app_answer": "LTCS stands for **Lap Time Classified Sessions** (B4).  \nThe excerpts do not specify which particular sessions are classified as LTCS.",
+    "app_answer": "LTCS stands for **Lap Time Classified Sessions** (B4.1.1).  \nAny session in which lap times are recorded for classification is an LTCS.  \nIf the Race Director interrupts an LTCS, the interruption does not split it into separate sessions; the whole LTCS still counts as one session (B4.1.3).",
     "sources": [
       {
         "rule": "B4.1.3",
