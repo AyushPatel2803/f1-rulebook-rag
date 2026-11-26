@@ -20,12 +20,19 @@ MODEL = "openai/gpt-oss-20b"
 TOP_K = 8  # the right rule is often ranked 4-8, so 3 cards wasn't enough
 MIN_SCORE = 0.0  # gate off: tested, the AI and the citation check refuse junk on their own
 FAN_K = 3  # most extra cards the word bank may add
+PART_K = 3  # most extra cards each part of a multi-part question may add
 
 # fans and the rulebook use different words for the same thing ("battery" vs "Energy Store")
 with open("glossary.json", encoding="utf-8") as f:
     glossary = json.load(f)
 for entry in glossary:
     entry["pattern"] = re.compile(r"\b(" + "|".join(re.escape(w) for w in entry["fan"]) + r")\b", re.IGNORECASE)
+
+# a new question starts after "?", "!", ";", a full stop, ", and", or a comma/"and" followed by a
+# question word; lists like "Q1, Q2 and Q3" don't split because no question word follows the "and"
+QUESTION_WORDS = r"(?:what|how|which|who|when|where|why|does|do|did|is|are|was|were|can|could|will|would|should|has|have)\b"
+SPLIT_AT = re.compile(r"\?|!|;|\.\s+|,\s*and\s+|,\s*(?=" + QUESTION_WORDS + r")|\s+and\s+(?=" + QUESTION_WORDS + ")", re.IGNORECASE)
+VAGUE = {"it", "its", "he", "she", "they", "them", "their", "that", "this", "those", "same", "one"}
 
 REFUSAL = "The 2026 regulations provided don't cover that."
 
@@ -65,6 +72,22 @@ def search(question, k=TOP_K):
     return results
 
 
+def split_question(question):
+    """Break a multi-part question into its parts, without calling an AI."""
+    parts = [p.strip(" ,.") for p in SPLIT_AT.split(question) if p.strip(" ,.")]
+    if len(parts) <= 1:
+        return [question]
+    return parts[:2] + [" ".join(parts[2:])] if len(parts) > 3 else parts
+
+
+def part_query(part, first):
+    # "how big is it" means nothing on its own, so borrow the first part's words for the search
+    words = set(re.findall(r"[a-z0-9']+", part.lower()))
+    if len(words) < 5 or words & VAGUE:
+        return f"{part} {first}"
+    return part
+
+
 def rulebook_words(question):
     words = []
     for entry in glossary:
@@ -89,15 +112,28 @@ def mentions(card, words):
 
 
 def retrieve(question):
-    """The cards the AI gets: the normal top results, plus a few found using the rulebook's own words."""
+    """The cards the AI gets: the normal results, then extra cards from the word bank and from each part of the question.
+
+    Extras are only ever added, so a card that reaches the AI today can't be pushed out.
+    """
     results = search(question)
+    have = {card["rule"] for card, _ in results}
+
+    def add(candidates, limit):
+        new = [(c, s) for c, s in candidates if c["rule"] not in have][:limit]
+        results.extend(new)
+        have.update(c["rule"] for c, _ in new)
+
     words = rulebook_words(question)
     if words:
-        have = {card["rule"] for card, _ in results}
+        # only cards that actually use one of the rulebook words, so the AI isn't handed noise
         lane = search(question + " " + " ".join(words), k=20)
-        # only new cards that actually use one of the rulebook words, so the AI isn't handed noise
-        extra = [(c, s) for c, s in lane if c["rule"] not in have and mentions(c, words)]
-        results += extra[:FAN_K]
+        add([(c, s) for c, s in lane if mentions(c, words)], FAN_K)
+
+    parts = split_question(question)
+    if len(parts) > 1:
+        for i, part in enumerate(parts):
+            add(search(part if i == 0 else part_query(part, parts[0])), PART_K)
     return results
 
 
