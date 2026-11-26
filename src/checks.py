@@ -28,7 +28,9 @@ def normalize(text):
 
 
 def contains(text, word):
-    word = normalize(word)
+    # "two-hour" and "two hour" mean the same thing, so treat dashes as spaces on both sides
+    word = normalize(word).replace("-", " ")
+    text = text.replace("-", " ")
     # whole words only, so "four" doesn't match "fourth" and "10" doesn't match "100"
     end = r"(?!\d)" if word[-1].isdigit() else r"(?:e?s)?(?!\w)"
     if re.search(r"(?<!\w)" + re.escape(word) + end, text):

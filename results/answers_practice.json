@@ -891,7 +891,7 @@
         "score": 0.696
       }
     ],
-    "auto_check": "CHECK",
+    "auto_check": "OK",
     "model": "openai/gpt-oss-20b"
   },
   {
